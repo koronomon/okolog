@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_add"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- 上部：固定入力欄 -->
+    <LinearLayout
+        android:id="@+id/fixed_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="70dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:background="#EEEEEE"
+        android:elevation="4dp">
+
+        <Button
+            android:id="@+id/btn_pick_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="日付を選択" />
+
+        <EditText
+            android:id="@+id/et_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="金額"
+            android:inputType="number" />
+
+        <RadioGroup
+            android:id="@+id/radio_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/radio_income"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="収入" />
+            <RadioButton
+                android:id="@+id/radio_expense"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="支出" />
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/et_memo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="メモ（任意）" />
+    </LinearLayout>
+
+    <!-- 下部：カテゴリスクロール -->
+    <ScrollView
+        android:id="@+id/scrollView_categories"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="8dp">
+
+        <LinearLayout
+            android:id="@+id/category_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <!-- カテゴリボタンがここに追加される -->
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
