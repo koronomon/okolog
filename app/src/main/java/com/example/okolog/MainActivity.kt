@@ -1,25 +1,33 @@
 package com.example.okolog
-
+import android.app.DatePickerDialog
 import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
+import android.widget.Button
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.okolog.ui.theme.OkoLogTheme
+import android.widget.DatePicker
 
-class MainActivity : ComponentActivity() {
+
+class MainActivity : AppCompatActivity() , DatePickerDialog.OnDateSetListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
         // activity_main.xmlを指定
-        setContentView(R.layout.main_activity)
+        setContentView(R.layout.activity_main)
+
+        val dateButton: Button = findViewById(R.id.btn_pick_date)
+
+        dateButton.setOnClickListener {
+            val dateFragment = DatePick()
+            dateFragment.show(supportFragmentManager, "datePicker")
+        }
+    }
+
+    override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+        val dateText:TextView =findViewById(R.id.date_text)
+        val selectedDate = "$year/${month.plus(1)}/$dayOfMonth"
+        dateText.text = selectedDate
     }
 }
 
