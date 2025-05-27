@@ -14,5 +14,8 @@ data class Category(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
 
     // 名前
-    val name: String
+    val name: String,
+
+    // 無効フラグ
+    val isDisabled: Boolean = false
 )

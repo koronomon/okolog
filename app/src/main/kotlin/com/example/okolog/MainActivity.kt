@@ -33,8 +33,7 @@ class MainActivity : AppCompatActivity() , DatePickerDialog.OnDateSetListener {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        // 初期化
-        db = AppDatabase.getDatabase(applicationContext)
+
 
         // activity_main.xmlを指定
         setContentView(R.layout.activity_main)
@@ -46,30 +45,14 @@ class MainActivity : AppCompatActivity() , DatePickerDialog.OnDateSetListener {
             dateFragment.show(supportFragmentManager, "datePicker")
         }
 
+        // DBコンテキスト初期化
+        db = AppDatabase.getDatabase(applicationContext)
+
         // カテゴリボタンの表示
+        // LiveDataを監視してカテゴリボタン描画
         categoryContainer = findViewById(R.id.category_container)
-
-        // スタブカテゴリ（仮データ）
-        val stubCategories = listOf("食費", "交通", "娯楽", "医療", "通信")
-        // カテゴリボタンを生成して追加
-        stubCategories.forEach { category ->
-            val button = Button(this).apply {
-                text = category
-                layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                ).apply {
-                    setMargins(0, 16, 0, 16)
-                }
-            }
-
-            // 仮のクリックイベント
-            button.setOnClickListener {
-                Toast.makeText(this, "$category が選ばれました", Toast.LENGTH_SHORT).show()
-            }
-
-            categoryContainer.addView(button)
-
+        db.categoryDao().getAll().observe(this) { categories ->
+            updateCategoryButtons(categories)
         }
 
         // カテゴリ追加ボタン押下時イベント登録
@@ -102,8 +85,8 @@ class MainActivity : AppCompatActivity() , DatePickerDialog.OnDateSetListener {
             .setPositiveButton("追加") { _, _ ->
                 val categoryName = editText.text.toString().trim()
                 if (categoryName.isNotEmpty()) {
+                    // カテゴリ登録処理
                     insertCategory(categoryName)
-//                    Toast.makeText(this, "カテゴリを登録しました", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(this, "カテゴリ名を入力してください", Toast.LENGTH_SHORT).show()
                 }
@@ -112,6 +95,7 @@ class MainActivity : AppCompatActivity() , DatePickerDialog.OnDateSetListener {
             .show()
     }
 
+    // カテゴリ登録処理
     private fun insertCategory(name: String) {
         lifecycleScope.launch {
             val category = Category(name = name) // ID は自動生成される想定
@@ -119,20 +103,51 @@ class MainActivity : AppCompatActivity() , DatePickerDialog.OnDateSetListener {
             Toast.makeText(this@MainActivity, "カテゴリを追加しました", Toast.LENGTH_SHORT).show()
         }
     }
-}
 
-//@Composable
-//fun Greeting(name: String, modifier: Modifier = Modifier) {
-//    Text(
-//        text = "Hello $name!",
-//        modifier = modifier
-//    )
-//}
-//
-//@Preview(showBackground = true)
-//@Composable
-//fun GreetingPreview() {
-//    OkoLogTheme {
-//        Greeting("Android")
-//    }
-//}
+    // カテゴリボタン表示処理
+    private fun updateCategoryButtons(categories: List<Category>) {
+        categoryContainer.removeAllViews()
+        categories.forEach { category ->
+            val button = Button(this).apply {
+                text = category.name
+                layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                ).apply {
+                    setMargins(0, 16, 0, 16)
+                }
+            }
+            // 短押しで選択
+            button.setOnClickListener {
+                Toast.makeText(this, "${category.name} が選ばれました", Toast.LENGTH_SHORT).show()
+            }
+            // 長押しで無効化ダイアログ表示
+            button.setOnLongClickListener {
+                showDisableCategoryDialog(category)
+                true  // 長押しイベントを消費したことを示す
+            }
+            categoryContainer.addView(button)
+        }
+    }
+
+    // カテゴリ無効化ダイアログ表示
+    private fun showDisableCategoryDialog(category: Category) {
+        AlertDialog.Builder(this)
+            .setTitle("カテゴリを無効化")
+            .setMessage("${category.name} を無効化しますか？")
+            .setPositiveButton("はい") { _, _ ->
+                disableCategory(category)
+            }
+            .setNegativeButton("キャンセル", null)
+            .show()
+    }
+
+    // カテゴリ無効化処理
+    private fun disableCategory(category: Category) {
+        lifecycleScope.launch {
+            val disabledCategory = category.copy(isDisabled = true)
+            db.categoryDao().update(disabledCategory)
+            Toast.makeText(this@MainActivity, "${category.name} を無効化しました", Toast.LENGTH_SHORT).show()
+        }
+    }
+}
