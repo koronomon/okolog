@@ -133,8 +133,8 @@ class MainActivity : AppCompatActivity() , DatePickerDialog.OnDateSetListener {
     // カテゴリ無効化ダイアログ表示
     private fun showDisableCategoryDialog(category: Category) {
         AlertDialog.Builder(this)
-            .setTitle("カテゴリを無効化")
-            .setMessage("${category.name} を無効化しますか？")
+            .setTitle("カテゴリを削除")
+            .setMessage("カテゴリ${category.name} を削除しますか？")
             .setPositiveButton("はい") { _, _ ->
                 disableCategory(category)
             }
@@ -147,7 +147,7 @@ class MainActivity : AppCompatActivity() , DatePickerDialog.OnDateSetListener {
         lifecycleScope.launch {
             val disabledCategory = category.copy(isDisabled = true)
             db.categoryDao().update(disabledCategory)
-            Toast.makeText(this@MainActivity, "${category.name} を無効化しました", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@MainActivity, "${category.name} を削除しました", Toast.LENGTH_SHORT).show()
         }
     }
 }
