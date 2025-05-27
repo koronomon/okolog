@@ -12,8 +12,10 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
+import com.example.okolog.R
+import com.example.okolog.data.AppDatabase
 import kotlinx.coroutines.launch
-import java.util.Locale
+import com.example.okolog.data.Category
 
 
 class MainActivity : AppCompatActivity() , DatePickerDialog.OnDateSetListener {
@@ -21,9 +23,18 @@ class MainActivity : AppCompatActivity() , DatePickerDialog.OnDateSetListener {
     // カテゴリボタンの変数
     private lateinit var categoryContainer: LinearLayout
 
+    // DB
+    private lateinit var db: AppDatabase
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
+
+
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        // 初期化
+        db = AppDatabase.getDatabase(applicationContext)
 
         // activity_main.xmlを指定
         setContentView(R.layout.activity_main)
@@ -91,8 +102,8 @@ class MainActivity : AppCompatActivity() , DatePickerDialog.OnDateSetListener {
             .setPositiveButton("追加") { _, _ ->
                 val categoryName = editText.text.toString().trim()
                 if (categoryName.isNotEmpty()) {
-//                    insertCategory(categoryName)
-                    Toast.makeText(this, "カテゴリを登録しました", Toast.LENGTH_SHORT).show()
+                    insertCategory(categoryName)
+//                    Toast.makeText(this, "カテゴリを登録しました", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(this, "カテゴリ名を入力してください", Toast.LENGTH_SHORT).show()
                 }
@@ -101,13 +112,13 @@ class MainActivity : AppCompatActivity() , DatePickerDialog.OnDateSetListener {
             .show()
     }
 
-//    private fun insertCategory(name: String) {
-//        lifecycleScope.launch {
-//            val category = Locale.Category(name = name) // ID は自動生成される想定
-//            db.categoryDao().insert(category)
-//            Toast.makeText(this@AddTransactionActivity, "カテゴリを追加しました", Toast.LENGTH_SHORT).show()
-//        }
-//    }
+    private fun insertCategory(name: String) {
+        lifecycleScope.launch {
+            val category = Category(name = name) // ID は自動生成される想定
+            db.categoryDao().insert(category)
+            Toast.makeText(this@MainActivity, "カテゴリを追加しました", Toast.LENGTH_SHORT).show()
+        }
+    }
 }
 
 //@Composable
