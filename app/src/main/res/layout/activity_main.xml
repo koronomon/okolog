@@ -44,15 +44,17 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <RadioButton
+                android:id="@+id/radio_expense"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="支出" />            
+            <RadioButton
                 android:id="@+id/radio_income"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="収入" />
-            <RadioButton
-                android:id="@+id/radio_expense"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="支出" />
+
         </RadioGroup>
 
         <EditText
