@@ -18,26 +18,26 @@
         android:paddingRight="20dp"
         android:background="#EEEEEE"
         android:elevation="4dp">
-
+        <!-- 日付表示エリア -->
         <TextView
             android:id="@+id/date_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="YYYY/MM/DD" />
-
+        <!-- 日付選択ボタン -->
         <Button
             android:id="@+id/btn_pick_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="日付を選択" />
-
+        <!-- 金額入力 -->
         <EditText
             android:id="@+id/et_amount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="金額"
             android:inputType="number" />
-
+        <!-- 支出収入ラジオボタン -->
         <RadioGroup
             android:id="@+id/radio_type"
             android:layout_width="match_parent"
@@ -56,7 +56,7 @@
                 android:text="収入" />
 
         </RadioGroup>
-
+        <!-- memo -->
         <EditText
             android:id="@+id/et_memo"
             android:layout_width="match_parent"
@@ -82,4 +82,14 @@
             <!-- カテゴリボタンがここに追加される -->
         </LinearLayout>
     </ScrollView>
+    <!-- カテゴリ追加ボタン -->
+    <Button
+        android:id="@+id/btn_add_category"
+        android:text="＋ カテゴリを追加"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"/>
 </LinearLayout>
