@@ -22,8 +22,7 @@
         <TextView
             android:id="@+id/date_text"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="YYYY/MM/DD" />
+            android:layout_height="wrap_content" />
         <!-- 日付選択ボタン -->
         <Button
             android:id="@+id/btn_pick_date"

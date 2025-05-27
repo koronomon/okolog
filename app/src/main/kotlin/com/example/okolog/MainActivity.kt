@@ -1,6 +1,7 @@
 package com.example.okolog
 import android.app.AlertDialog
 import android.app.DatePickerDialog
+import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import android.text.InputType
 import android.widget.Button
@@ -10,12 +11,15 @@ import androidx.activity.enableEdgeToEdge
 import android.widget.DatePicker
 import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.RadioButton
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
-import com.example.okolog.R
 import com.example.okolog.data.AppDatabase
 import kotlinx.coroutines.launch
 import com.example.okolog.data.Category
+import com.example.okolog.data.Transaction
+import java.util.Date
+import java.util.Locale
 
 
 class MainActivity : AppCompatActivity() , DatePickerDialog.OnDateSetListener {
@@ -37,6 +41,12 @@ class MainActivity : AppCompatActivity() , DatePickerDialog.OnDateSetListener {
 
         // activity_main.xmlを指定
         setContentView(R.layout.activity_main)
+
+        // 今日の日付を取得して表示
+        val dateText: TextView = findViewById(R.id.date_text)
+        val formatter = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault())
+        val today = Date()
+        dateText.text = formatter.format(today)
 
         // 日付選択ボタンの動作登録
         val dateButton: Button = findViewById(R.id.btn_pick_date)
@@ -117,9 +127,30 @@ class MainActivity : AppCompatActivity() , DatePickerDialog.OnDateSetListener {
                     setMargins(0, 16, 0, 16)
                 }
             }
-            // 短押しで選択
+            // 短押しでレコード追加
             button.setOnClickListener {
-                Toast.makeText(this, "${category.name} が選ばれました", Toast.LENGTH_SHORT).show()
+
+                // 日付取得
+                val dateText: TextView = findViewById(R.id.date_text)
+                val original = dateText.text.toString()
+                val converted = original.replace("/", "-")
+
+                // 金額取得
+                val amountText: EditText = findViewById(R.id.et_amount)
+                val amount = amountText.text.toString().toIntOrNull() ?: 0
+
+                // 支出収入取得
+                val expenseRadio: RadioButton = findViewById(R.id.radio_expense)
+                var isExpense = false
+                // 支出にチェックあり
+                if(expenseRadio.isChecked){
+                    isExpense = true
+                }
+
+                // メモ取得
+                val memoText: EditText = findViewById(R.id.et_memo)
+                // レコード追加
+                addTransaction(converted,amount,isExpense,memoText.text.toString(),category.id)
             }
             // 長押しで無効化ダイアログ表示
             button.setOnLongClickListener {
@@ -129,6 +160,31 @@ class MainActivity : AppCompatActivity() , DatePickerDialog.OnDateSetListener {
             categoryContainer.addView(button)
         }
     }
+
+    // レコード追加処理
+    fun addTransaction(
+        date: String,
+        amount: Int,
+        isExpense: Boolean,
+        memo: String?,
+        categoryId: Int
+    ) {
+        val transactionDao = db.transactionDao()
+
+        lifecycleScope.launch {
+            val transaction = Transaction(
+                date = date,
+                amount = amount,
+                isExpense = isExpense,
+                memo = memo,
+                categoryId = categoryId
+            )
+            transactionDao.insert(transaction)
+            // 追加完了のメッセージなどUI更新
+            Toast.makeText(this@MainActivity, "取引を追加しました", Toast.LENGTH_SHORT).show()
+        }
+    }
+
 
     // カテゴリ無効化ダイアログ表示
     private fun showDisableCategoryDialog(category: Category) {
