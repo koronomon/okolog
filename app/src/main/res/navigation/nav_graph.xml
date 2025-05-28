@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/nav_register">
+
+    <fragment
+        android:id="@+id/nav_register"
+        android:name="com.example.okolog.RegisterFragment"
+        android:label="登録" />
+
+    <fragment
+        android:id="@+id/transactionListFragment"
+        android:name="com.example.okolog.TransactionListFragment"
+        android:label="取引一覧" />
+<!--
+    <fragment
+        android:id="@+id/nav_list"
+        android:name="com.example.okolog.ui.ListFragment"
+        android:label="一覧" />
+
+    <fragment
+        android:id="@+id/nav_summary"
+        android:name="com.example.okolog.ui.SummaryFragment"
+        android:label="集計" />
+-->
+</navigation>
