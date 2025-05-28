@@ -9,8 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.activity.enableEdgeToEdge
 import android.widget.DatePicker
 import android.widget.EditText
 import android.widget.LinearLayout
@@ -71,51 +69,6 @@ class RegisterFragment : Fragment() , DatePickerDialog.OnDateSetListener {
             showAddCategoryDialog()
         }
     }
-
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//
-//
-//
-//        super.onCreate(savedInstanceState)
-//        enableEdgeToEdge()
-//
-//
-//
-//        // activity_main.xmlを指定
-//        setContentView(R.layout.register_fragment)
-//
-//        // 今日の日付を取得して表示
-//        val dateText: TextView = findViewById(R.id.date_text)
-//        val formatter = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault())
-//        val today = Date()
-//        dateText.text = formatter.format(today)
-//
-//        // 日付選択ボタンの動作登録
-//        val dateButton: Button = findViewById(R.id.btn_pick_date)
-//        dateButton.setOnClickListener {
-//            val dateFragment = DatePick()
-//            dateFragment.show(supportFragmentManager, "datePicker")
-//        }
-//
-//        // DBコンテキスト初期化
-//        db = AppDatabase.getDatabase(applicationContext)
-//
-//        // カテゴリボタンの表示
-//        // LiveDataを監視してカテゴリボタン描画
-//        categoryContainer = findViewById(R.id.category_container)
-//        db.categoryDao().getAll().observe(this) { categories ->
-//            updateCategoryButtons(categories)
-//        }
-//
-//        // カテゴリ追加ボタン押下時イベント登録
-//        val addCategoryButton = findViewById<Button>(R.id.btn_add_category)
-//        addCategoryButton.setOnClickListener {
-//            showAddCategoryDialog()
-//        }
-//
-//
-//
-//    }
 
     // 日付選択ダイアログの登録処理オーバーライド
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
@@ -195,53 +148,6 @@ class RegisterFragment : Fragment() , DatePickerDialog.OnDateSetListener {
             categoryContainer.addView(button)
         }
     }
-
-//    // カテゴリボタン表示処理
-//    private fun updateCategoryButtons(categories: List<Category>) {
-//        categoryContainer.removeAllViews()
-//        categories.forEach { category ->
-//            val button = Button(this).apply {
-//                text = category.name
-//                layoutParams = LinearLayout.LayoutParams(
-//                    LinearLayout.LayoutParams.MATCH_PARENT,
-//                    LinearLayout.LayoutParams.WRAP_CONTENT
-//                ).apply {
-//                    setMargins(0, 16, 0, 16)
-//                }
-//            }
-//            // 短押しでレコード追加
-//            button.setOnClickListener {
-//
-//                // 日付取得
-//                val dateText: TextView = findViewById(R.id.date_text)
-//                val original = dateText.text.toString()
-//                val converted = original.replace("/", "-")
-//
-//                // 金額取得
-//                val amountText: EditText = findViewById(R.id.et_amount)
-//                val amount = amountText.text.toString().toIntOrNull() ?: 0
-//
-//                // 支出収入取得
-//                val expenseRadio: RadioButton = findViewById(R.id.radio_expense)
-//                var isExpense = false
-//                // 支出にチェックあり
-//                if(expenseRadio.isChecked){
-//                    isExpense = true
-//                }
-//
-//                // メモ取得
-//                val memoText: EditText = findViewById(R.id.et_memo)
-//                // レコード追加
-//                addTransaction(converted,amount,isExpense,memoText.text.toString(),category.id)
-//            }
-//            // 長押しで無効化ダイアログ表示
-//            button.setOnLongClickListener {
-//                showDisableCategoryDialog(category)
-//                true  // 長押しイベントを消費したことを示す
-//            }
-//            categoryContainer.addView(button)
-//        }
-//    }
 
     // レコード追加処理
     fun addTransaction(
