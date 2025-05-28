@@ -51,6 +51,9 @@ dependencies {
     // Room ライブラリ（バージョン統一）
     implementation("androidx.room:room-runtime:2.6.0")
     implementation("androidx.room:room-ktx:2.6.0")
+    implementation(libs.material)
+    implementation(libs.androidx.navigation.fragment)
+    implementation(libs.androidx.navigation.ui.ktx)
     kapt("androidx.room:room-compiler:2.6.0")
 
     implementation(libs.androidx.core.ktx)
