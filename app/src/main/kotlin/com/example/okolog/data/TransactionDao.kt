@@ -10,7 +10,7 @@ import androidx.room.Update
 
 @Dao
 interface TransactionDao {
-    @Query("SELECT * FROM transactions ORDER BY date DESC")
+    @Query("SELECT * FROM transactions ORDER BY date DESC, id DESC")
     fun getAll(): LiveData<List<Transaction>>
 
     @Insert

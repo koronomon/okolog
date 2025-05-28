@@ -11,4 +11,7 @@
     <!-- ナビゲーション用の色 -->
     <color name="yourSelectedColor">#FF4081</color>
     <color name="yourUnselectedColor">#808080</color>
+    <!-- 一覧用収入支出の色 -->
+    <color name="red">#E53935</color>
+    <color name="blue">#1E88E5</color>
 </resources>
