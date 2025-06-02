@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,6 +22,7 @@ class TransactionListFragment : Fragment() {
     private lateinit var db: AppDatabase
     private lateinit var adapter: TransactionAdapter
     private lateinit var currentTransactionsLiveData: LiveData<List<TransactionWithCategory>>
+    private lateinit var totalTextView: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,6 +39,7 @@ class TransactionListFragment : Fragment() {
 
         val yearSpinner = view.findViewById<Spinner>(R.id.year_spinner)
         val monthSpinner = view.findViewById<Spinner>(R.id.month_spinner)
+        totalTextView = view.findViewById(R.id.text_total_amount)
 
         // 現在の年と月を取得
         val calendar = Calendar.getInstance()
@@ -71,6 +75,26 @@ class TransactionListFragment : Fragment() {
             currentTransactionsLiveData = db.transactionItemModelDao().getByMonth(targetMonth)
             currentTransactionsLiveData.observe(viewLifecycleOwner) { transactions ->
                 adapter.submitList(transactions)
+
+                // 合計金額の計算と表示
+                val total = transactions.sumOf {
+                    if (it.transaction.isExpense){
+                        -it.transaction.amount
+                    } else {
+                        it.transaction.amount
+                    }
+                }
+
+                val formatted = "合計: %,d円".format(total)
+                totalTextView.text = formatted
+
+                val color = if (total < 0) {
+                    ContextCompat.getColor(requireContext(), android.R.color.holo_red_dark)
+                }
+                else {
+                    ContextCompat.getColor(requireContext(), android.R.color.holo_blue_dark)
+                }
+                totalTextView.setTextColor(color)
             }
         }
 
