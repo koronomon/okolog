@@ -6,7 +6,7 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 
 @Entity(
-    tableName = "transactions",
+    tableName = "transaction_item_model",
     foreignKeys = [
         ForeignKey(
             entity = Category::class,
@@ -17,7 +17,7 @@ import androidx.room.PrimaryKey
     ],
     indices = [Index(value = ["categoryId"])]
 )
-data class Transaction(
+data class TransactionItemModel(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val date: String,
     val amount: Int,

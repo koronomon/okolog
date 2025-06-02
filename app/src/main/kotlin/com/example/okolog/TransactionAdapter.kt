@@ -7,10 +7,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.okolog.R
-import com.example.okolog.data.Transaction
+import com.example.okolog.data.TransactionWithCategory
 
-class TransactionAdapter : ListAdapter<Transaction, TransactionAdapter.ViewHolder>(
+class TransactionAdapter : ListAdapter<TransactionWithCategory, TransactionAdapter.ViewHolder>(
     DiffCallback()
 ) {
 
@@ -19,15 +18,17 @@ class TransactionAdapter : ListAdapter<Transaction, TransactionAdapter.ViewHolde
         private val amountText: TextView = view.findViewById(R.id.text_amount)
         private val typeText: TextView = view.findViewById(R.id.text_type)
         private val memoText: TextView = view.findViewById(R.id.text_memo)
+        private val categoryText: TextView = view.findViewById(R.id.category_text)
 
-        fun bind(item: Transaction) {
-            dateText.text = item.date
-            amountText.text = "${item.amount}円"
-            typeText.text = if (item.isExpense) "支出" else "収入"
-            memoText.text = item.memo ?: ""
+        fun bind(item: TransactionWithCategory) {
+            dateText.text = item.transaction.date
+            amountText.text = "${item.transaction.amount}円"
+            typeText.text = if (item.transaction.isExpense) "支出" else "収入"
+            memoText.text = item.transaction.memo ?: ""
+            categoryText.text = item.category.name
 
             val context = itemView.context
-            val color = if (item.isExpense) {
+            val color = if (item.transaction.isExpense) {
                 context.getColor(R.color.red)
             } else {
                 context.getColor(R.color.blue)
@@ -48,11 +49,11 @@ class TransactionAdapter : ListAdapter<Transaction, TransactionAdapter.ViewHolde
         holder.bind(getItem(position))
     }
 
-    class DiffCallback : DiffUtil.ItemCallback<Transaction>() {
-        override fun areItemsTheSame(oldItem: Transaction, newItem: Transaction) =
-            oldItem.id == newItem.id
+    class DiffCallback : DiffUtil.ItemCallback<TransactionWithCategory>() {
+        override fun areItemsTheSame(oldItem: TransactionWithCategory, newItem: TransactionWithCategory) =
+            oldItem.transaction.id == newItem.transaction.id
 
-        override fun areContentsTheSame(oldItem: Transaction, newItem: Transaction) =
+        override fun areContentsTheSame(oldItem: TransactionWithCategory, newItem: TransactionWithCategory) =
             oldItem == newItem
     }
 }

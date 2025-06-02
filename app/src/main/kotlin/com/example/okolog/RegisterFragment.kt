@@ -19,7 +19,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.okolog.data.AppDatabase
 import kotlinx.coroutines.launch
 import com.example.okolog.data.Category
-import com.example.okolog.data.Transaction
+import com.example.okolog.data.TransactionItemModel
 import java.util.Date
 import java.util.Locale
 
@@ -51,7 +51,9 @@ class RegisterFragment : Fragment() , DatePickerDialog.OnDateSetListener {
         // 日付選択ボタンの動作登録
         val dateButton: Button = view.findViewById(R.id.btn_pick_date)
         dateButton.setOnClickListener {
-            val dateFragment = DatePick()
+            val dateFragment = DatePick { selectedDate ->
+                dateText.text = selectedDate
+            }
             dateFragment.show(parentFragmentManager, "datePicker")
         }
 
@@ -139,6 +141,10 @@ class RegisterFragment : Fragment() , DatePickerDialog.OnDateSetListener {
                 val memoText: EditText = view.findViewById(R.id.et_memo)
                 // レコード追加
                 addTransaction(converted, amount, isExpense, memoText.text.toString(), category.id)
+
+                // 金額とメモを空にする
+                amountText.text = null
+                memoText.text = null
             }
             // 長押しで無効化ダイアログ表示
             button.setOnLongClickListener {
@@ -157,10 +163,10 @@ class RegisterFragment : Fragment() , DatePickerDialog.OnDateSetListener {
         memo: String?,
         categoryId: Int
     ) {
-        val transactionDao = db.transactionDao()
+        val transactionDao = db.transactionItemModelDao()
 
         lifecycleScope.launch {
-            val transaction = Transaction(
+            val transaction = TransactionItemModel(
                 date = date,
                 amount = amount,
                 isExpense = isExpense,
