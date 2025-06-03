@@ -23,6 +23,7 @@ class TransactionListFragment : Fragment() {
     private lateinit var adapter: TransactionAdapter
     private lateinit var currentTransactionsLiveData: LiveData<List<TransactionWithCategory>>
     private lateinit var totalTextView: TextView
+    private var selectedCategoryId: Int? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -74,10 +75,16 @@ class TransactionListFragment : Fragment() {
             }
             currentTransactionsLiveData = db.transactionItemModelDao().getByMonth(targetMonth)
             currentTransactionsLiveData.observe(viewLifecycleOwner) { transactions ->
-                adapter.submitList(transactions)
+                // 表示レコードをフィルター
+                // すべての場合selectedCategoryIdはnull
+                val filtered = selectedCategoryId?.let { id ->
+                    transactions.filter { it.transaction.categoryId == id }
+                } ?: transactions
+
+                adapter.submitList(filtered)
 
                 // 合計金額の計算と表示
-                val total = transactions.sumOf {
+                val total = filtered.sumOf {
                     if (it.transaction.isExpense){
                         -it.transaction.amount
                     } else {
@@ -88,6 +95,7 @@ class TransactionListFragment : Fragment() {
                 val formatted = "合計: %,d円".format(total)
                 totalTextView.text = formatted
 
+                // 合計金額によって文字色の変更
                 val color = if (total < 0) {
                     ContextCompat.getColor(requireContext(), android.R.color.holo_red_dark)
                 }
@@ -112,11 +120,22 @@ class TransactionListFragment : Fragment() {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
-        // RecyclerViewセットアップ
+        // レコード一覧RecyclerViewセットアップ
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         adapter = TransactionAdapter()
         recyclerView.adapter = adapter
+
+        // カテゴリ一覧RecyclerViewセットアップ
+        val categoryRecyclerView = view.findViewById<RecyclerView>(R.id.category_tab_list)
+        categoryRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        db.categoryDao().getAll().observe(viewLifecycleOwner) { categories ->
+            val activeCategories = categories.filter { !it.isDisabled }
+            categoryRecyclerView.adapter = CategoryTabAdapter(activeCategories) { selectedCategory ->
+                selectedCategoryId = selectedCategory?.id
+                loadSelectedMonth()
+            }
+        }
 
         // 初期データロード
         loadSelectedMonth()
