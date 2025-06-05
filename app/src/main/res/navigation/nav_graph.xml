@@ -10,18 +10,13 @@
         android:label="登録" />
 
     <fragment
-        android:id="@+id/transactionListFragment"
-        android:name="com.example.okolog.TransactionListFragment"
-        android:label="取引一覧" />
-<!--
-    <fragment
-        android:id="@+id/nav_list"
-        android:name="com.example.okolog.ui.ListFragment"
-        android:label="一覧" />
+        android:id="@+id/categorySummaryFragment"
+        android:name="com.example.okolog.CategorySummaryFragment"
+        android:label="合計" />
 
     <fragment
-        android:id="@+id/nav_summary"
-        android:name="com.example.okolog.ui.SummaryFragment"
-        android:label="集計" />
--->
+        android:id="@+id/transactionListFragment"
+        android:name="com.example.okolog.TransactionListFragment"
+        android:label="一覧" />
+
 </navigation>

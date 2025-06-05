@@ -6,6 +6,11 @@
         android:title="登録" />
 
     <item
+        android:id="@+id/categorySummaryFragment"
+        android:icon="@drawable/ic_total"
+        android:title="合計" />
+
+    <item
         android:id="@+id/transactionListFragment"
         android:title="一覧"
         android:icon="@drawable/ic_list" />

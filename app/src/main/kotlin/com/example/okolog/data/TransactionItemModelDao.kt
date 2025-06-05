@@ -18,8 +18,17 @@ interface TransactionItemModelDao {
     fun getByMonth(month: String): LiveData<List<TransactionWithCategory>>
 
     @Transaction
-    @Query("SELECT * FROM transaction_item_model WHERE date LIKE :month || '%' ORDER BY date DESC, id DESC")
-    fun getMayTransactionsWithCategory(month: String): LiveData<List<TransactionWithCategory>>
+    @Query("""
+    SELECT c.name AS name, 
+           SUM(CASE WHEN t.isExpense = 1 THEN -t.amount ELSE t.amount END) AS total
+    FROM transaction_item_model t
+    INNER JOIN categories c ON t.categoryId = c.id
+    WHERE t.date LIKE :month || '%'
+      AND c.isDisabled = 0
+    GROUP BY c.id, c.name
+    ORDER BY c.name
+""")
+    suspend fun getCategoryTotalsByMonth(month: String): List<CategoryTotal>
 
     @Insert
     suspend fun insert(transaction: TransactionItemModel)
