@@ -60,7 +60,8 @@
             android:id="@+id/et_memo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="メモ（任意）" />
+            android:hint="メモ（任意）"
+            android:maxLength="20"/>
     </LinearLayout>
 
     <!-- 下部：カテゴリスクロール -->

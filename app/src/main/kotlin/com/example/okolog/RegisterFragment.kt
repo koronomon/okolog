@@ -139,6 +139,13 @@ class RegisterFragment : Fragment() , DatePickerDialog.OnDateSetListener {
                 val isExpense = expenseRadio.isChecked
                 // メモ取得
                 val memoText: EditText = view.findViewById(R.id.et_memo)
+
+                // ここで文字数チェック
+                if (memoText.text.length > 20) {
+                    Toast.makeText(requireContext(), "メモは20文字以内で入力してください", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+
                 // レコード追加
                 addTransaction(converted, amount, isExpense, memoText.text.toString(), category.id)
 
