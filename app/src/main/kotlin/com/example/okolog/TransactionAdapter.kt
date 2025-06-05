@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.okolog.data.TransactionWithCategory
 
-class TransactionAdapter : ListAdapter<TransactionWithCategory, TransactionAdapter.ViewHolder>(
+class TransactionAdapter (
+    private val onDeleteClick: (TransactionWithCategory) -> Unit
+): ListAdapter<TransactionWithCategory, TransactionAdapter.ViewHolder>(
     DiffCallback()
 ) {
 
@@ -19,8 +21,9 @@ class TransactionAdapter : ListAdapter<TransactionWithCategory, TransactionAdapt
         private val typeText: TextView = view.findViewById(R.id.text_type)
         private val memoText: TextView = view.findViewById(R.id.text_memo)
         private val categoryText: TextView = view.findViewById(R.id.category_text)
+        private val deleteButton: View = view.findViewById(R.id.button_delete)
 
-        fun bind(item: TransactionWithCategory) {
+        fun bind(item: TransactionWithCategory, onDeleteClick: (TransactionWithCategory) -> Unit) {
             dateText.text = item.transaction.date
             amountText.text = "${item.transaction.amount}円"
             typeText.text = if (item.transaction.isExpense) "支出" else "収入"
@@ -36,6 +39,11 @@ class TransactionAdapter : ListAdapter<TransactionWithCategory, TransactionAdapt
 
             typeText.setTextColor(color)
             amountText.setTextColor(color)
+
+            // 削除ボタンの挙動を登録
+            deleteButton.setOnClickListener {
+                onDeleteClick(item)
+            }
         }
     }
 
@@ -46,7 +54,7 @@ class TransactionAdapter : ListAdapter<TransactionWithCategory, TransactionAdapt
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), onDeleteClick)
     }
 
     class DiffCallback : DiffUtil.ItemCallback<TransactionWithCategory>() {

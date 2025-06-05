@@ -11,10 +11,13 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.okolog.data.AppDatabase
+import com.example.okolog.data.TransactionItemModelDao
 import com.example.okolog.data.TransactionWithCategory
+import kotlinx.coroutines.launch
 import java.util.Calendar
 
 class TransactionListFragment : Fragment() {
@@ -123,7 +126,12 @@ class TransactionListFragment : Fragment() {
         // レコード一覧RecyclerViewセットアップ
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        adapter = TransactionAdapter()
+        adapter = TransactionAdapter{ transactionWithCategory ->
+            // RoomのDAOを使って削除
+            lifecycleScope.launch {
+                db.transactionItemModelDao().delete(transactionWithCategory.transaction)
+            }
+        }
         recyclerView.adapter = adapter
 
         // カテゴリ一覧RecyclerViewセットアップ

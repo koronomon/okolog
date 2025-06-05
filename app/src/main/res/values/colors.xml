@@ -14,4 +14,6 @@
     <!-- 一覧用収入支出の色 -->
     <color name="red">#E53935</color>
     <color name="blue">#1E88E5</color>
+    <!-- 削除ボタンの色 -->
+    <color name="darker_gray">#A9A9A9</color>
 </resources>
