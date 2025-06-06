@@ -3,6 +3,8 @@ package com.example.okolog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -10,7 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.okolog.data.TransactionWithCategory
 
 class TransactionAdapter (
-    private val onDeleteClick: (TransactionWithCategory) -> Unit
+    private val onDeleteClick: (TransactionWithCategory) -> Unit,
+    private val onEditClick: (TransactionWithCategory) -> Unit
 ): ListAdapter<TransactionWithCategory, TransactionAdapter.ViewHolder>(
     DiffCallback()
 ) {
@@ -22,8 +25,11 @@ class TransactionAdapter (
         private val memoText: TextView = view.findViewById(R.id.text_memo)
         private val categoryText: TextView = view.findViewById(R.id.category_text)
         private val deleteButton: View = view.findViewById(R.id.button_delete)
+        val editButton: ImageButton = itemView.findViewById(R.id.button_edit)
 
-        fun bind(item: TransactionWithCategory, onDeleteClick: (TransactionWithCategory) -> Unit) {
+        fun bind(item: TransactionWithCategory,
+                 onDeleteClick: (TransactionWithCategory) -> Unit,
+                 onEditClick: (TransactionWithCategory) -> Unit) {
             dateText.text = item.transaction.date
             amountText.text = "${item.transaction.amount}円"
             typeText.text = if (item.transaction.isExpense) "支出" else "収入"
@@ -44,6 +50,11 @@ class TransactionAdapter (
             deleteButton.setOnClickListener {
                 onDeleteClick(item)
             }
+
+            // 編集ボタンの挙動を登録
+            editButton.setOnClickListener {
+                onEditClick(item)
+            }
         }
     }
 
@@ -54,7 +65,7 @@ class TransactionAdapter (
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position), onDeleteClick)
+        holder.bind(getItem(position), onDeleteClick, onEditClick)
     }
 
     class DiffCallback : DiffUtil.ItemCallback<TransactionWithCategory>() {

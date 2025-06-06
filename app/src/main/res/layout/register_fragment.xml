@@ -35,7 +35,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="金額"
-            android:inputType="number" />
+            android:inputType="number"
+            android:maxLength="7"/> <!-- 9999999 までの桁数 -->
         <!-- 支出収入ラジオボタン -->
         <RadioGroup
             android:id="@+id/radio_type"

@@ -1,75 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:background="@drawable/item_background"
     android:layout_margin="4dp"
     android:padding="8dp">
 
-    <!-- 上段：日付・収支・削除ボタン -->
+    <!-- 既存のコンテンツをまとめた縦のLinearLayout -->
     <LinearLayout
+        android:id="@+id/container_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="8dp">
 
-        <TextView
-            android:id="@+id/text_date"
-            android:layout_width="0dp"
+        <!-- 上段：日付・収支・削除ボタン -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="2025/5/28"
-            android:textSize="16sp" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
-        <TextView
-            android:id="@+id/text_type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="収入"
-            android:textSize="16sp"
-            android:layout_marginEnd="8dp" />
+            <TextView
+                android:id="@+id/text_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="2025/5/28"
+                android:textSize="16sp" />
 
-        <!-- 🔽 削除ボタン追加 -->
-        <ImageButton
-            android:id="@+id/button_delete"
-            android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/text_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="収入"
+                android:textSize="16sp"
+                android:layout_marginEnd="8dp" />
+
+            <ImageButton
+                android:id="@+id/button_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_delete"
+                android:contentDescription="削除"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:tint="@color/darker_gray" />
+        </LinearLayout>
+
+        <!-- 中段：カテゴリ・金額 -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_delete"
-            android:contentDescription="削除"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:tint="@color/darker_gray" />
+            android:orientation="horizontal"
+            android:layout_marginTop="4dp">
+
+            <TextView
+                android:id="@+id/category_text"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="食費"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/text_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1000 円"
+                android:textSize="14sp"/>
+        </LinearLayout>
+
+        <!-- 下段：メモ + 編集ボタン -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="4dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/text_memo"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="memo"
+                android:textSize="14sp" />
+
+            <ImageButton
+                android:id="@+id/button_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_edit"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="編集"
+                android:tint="@color/darker_gray"
+                android:padding="0dp"
+                android:layout_marginStart="8dp" />
+        </LinearLayout>
     </LinearLayout>
-
-    <!-- 中段：カテゴリ・金額 -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="4dp">
-
-        <TextView
-            android:id="@+id/category_text"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="食費"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/text_amount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1000 円"
-            android:textSize="14sp"/>
-    </LinearLayout>
-
-    <!-- 下段：メモ -->
-    <TextView
-        android:id="@+id/text_memo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="memo"
-        android:textSize="14sp"
-        android:layout_marginTop="4dp"/>
-</LinearLayout>
+</RelativeLayout>

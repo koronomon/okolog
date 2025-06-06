@@ -133,6 +133,11 @@ class RegisterFragment : Fragment() , DatePickerDialog.OnDateSetListener {
                 // 金額取得
                 val amountText: EditText = view.findViewById(R.id.et_amount)
                 val amount = amountText.text.toString().toIntOrNull() ?: 0
+                if (amount > 9999999) {
+                    Toast.makeText(requireContext(), "金額は9999999以下で入力してください", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+
                 // 支出収入取得
                 val expenseRadio: RadioButton = view.findViewById(R.id.radio_expense)
                 // 支出にチェックあり

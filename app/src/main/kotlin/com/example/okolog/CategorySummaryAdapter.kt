@@ -10,7 +10,7 @@ import com.example.okolog.R
 
 data class CategorySummary(
     val categoryName: String,
-    val totalAmount: Int
+    val totalAmount: Long
 )
 
 class CategorySummaryAdapter : RecyclerView.Adapter<CategorySummaryAdapter.ViewHolder>() {

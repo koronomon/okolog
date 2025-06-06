@@ -10,6 +10,12 @@ interface CategoryDao {
     @Query("SELECT * FROM categories WHERE isDisabled = 0 ORDER BY id ASC")
     fun getAll(): LiveData<List<Category>>
 
+    @Query("SELECT * FROM categories WHERE isDisabled = 0")
+    suspend fun getAllOnce(): List<Category>
+
+    @Query("SELECT * FROM categories WHERE id = :id LIMIT 1")
+    suspend fun getById(id: Int): Category?
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(category: Category)
 
