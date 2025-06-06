@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="80dp"
     android:orientation="horizontal"
-    android:padding="12dp"
-    android:background="?android:attr/selectableItemBackground"
-    android:gravity="center_vertical">
+    android:paddingVertical="12dp"
+    android:paddingHorizontal="16dp"
+    android:background="@drawable/bg_card_with_border"
+    android:gravity="center_vertical"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground">
 
     <!-- カテゴリ名 -->
     <TextView
@@ -14,7 +18,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="カテゴリ名"
-        android:textSize="16sp"/>
+        android:textSize="25sp"
+        android:textColor="#333333" />
 
     <!-- 合計金額 -->
     <TextView
@@ -22,6 +27,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="¥0"
-        android:textSize="16sp"
-        android:textStyle="bold"/>
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:textColor="#333333"
+        android:paddingStart="12dp" />
 </LinearLayout>

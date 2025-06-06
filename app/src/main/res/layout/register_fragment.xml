@@ -4,39 +4,56 @@
     android:id="@+id/layout_add"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#F5F5F5"> <!-- 全体背景少しグレー -->
 
-    <!-- 上部：固定入力欄 -->
+    <!-- 上部：入力カード -->
     <LinearLayout
         android:id="@+id/fixed_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingTop="70dp"
-        android:paddingBottom="10dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:background="#EEEEEE"
+        android:padding="16dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginBottom="12dp"
+        android:layout_marginRight="12dp"
+        android:background="@drawable/bg_rounded_card"
         android:elevation="4dp">
+
         <!-- 日付表示エリア -->
         <TextView
             android:id="@+id/date_text"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="2025/06/01"
+            android:textSize="16sp"
+            android:textColor="#333333" />
+
         <!-- 日付選択ボタン -->
         <Button
             android:id="@+id/btn_pick_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="日付を選択" />
+            android:text="日付を選択"
+            android:backgroundTint="#6200EE"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/bg_rounded_button" />
+
         <!-- 金額入力 -->
         <EditText
             android:id="@+id/et_amount"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:hint="金額"
             android:inputType="number"
-            android:maxLength="7"/> <!-- 9999999 までの桁数 -->
+            android:maxLength="7"
+            android:background="@drawable/bg_rounded_input"
+            android:padding="12dp"
+            android:layout_marginBottom="8dp"/>
+
         <!-- 支出収入ラジオボタン -->
         <RadioGroup
             android:id="@+id/radio_type"
@@ -47,50 +64,53 @@
                 android:id="@+id/radio_expense"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true"
                 android:text="支出" />
             <RadioButton
                 android:id="@+id/radio_income"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="収入" />
-
         </RadioGroup>
-        <!-- memo -->
+
+        <!-- メモ -->
         <EditText
             android:id="@+id/et_memo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="メモ（任意）"
-            android:maxLength="20"/>
+            android:maxLength="20"
+            android:background="@drawable/bg_rounded_input"
+            android:padding="12dp"
+            android:layout_marginTop="8dp"/>
     </LinearLayout>
 
-    <!-- 下部：カテゴリスクロール -->
+    <!-- カテゴリ部分 -->
     <ScrollView
         android:id="@+id/scrollView_categories"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:paddingTop="30dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
+        android:layout_margin="12dp"
+        android:background="@drawable/bg_rounded_card">
 
         <LinearLayout
             android:id="@+id/category_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <!-- カテゴリボタンがここに追加される -->
-        </LinearLayout>
+            android:orientation="vertical"
+            android:padding="12dp" />
     </ScrollView>
+
     <!-- カテゴリ追加ボタン -->
     <Button
         android:id="@+id/btn_add_category"
-        android:text="＋ カテゴリを追加"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="100dp"/>
+        android:text="＋ カテゴリを追加"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginBottom="100dp"
+        android:background="@drawable/bg_rounded_button"
+        android:textColor="@android:color/white"/>
 </LinearLayout>

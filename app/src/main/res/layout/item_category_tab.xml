@@ -3,7 +3,12 @@
     android:id="@+id/text_category"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="12dp"
+    android:padding="16dp"
     android:gravity="center"
     android:textSize="14sp"
-    android:background="?attr/selectableItemBackground" />
+    android:textColor="#333333"
+    android:background="@drawable/bg_card_with_border"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
+    android:elevation="2dp" />

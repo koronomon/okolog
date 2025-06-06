@@ -1,48 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_summary"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#F5F5F5"
     android:padding="12dp">
 
-    <!-- 年月スピナー -->
+    <!-- 年月スピナーを囲むカード -->
     <LinearLayout
+        android:id="@+id/card_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingBottom="8dp"
-        android:layout_marginTop="70dp">
+        android:padding="16dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/bg_rounded_card"
+        android:elevation="4dp">
 
         <Spinner
             android:id="@+id/year_spinner"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/bg_rounded_input" />
 
         <Spinner
             android:id="@+id/month_spinner"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/bg_rounded_input" />
     </LinearLayout>
 
-    <!-- 全体合計 -->
+    <!-- 合計表示 -->
     <TextView
         android:id="@+id/text_total_summary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="合計: ¥0"
-        android:textSize="20sp"
+        android:textSize="25sp"
         android:textStyle="bold"
         android:gravity="center"
-        android:paddingBottom="12dp" />
+        android:textColor="#333333"
+        android:paddingBottom="12dp"
+        android:layout_marginBottom="8dp"/>
 
-    <!-- 各カテゴリの合計 -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/category_summary_recycler"
+    <!-- カテゴリ合計リストもカード風で囲む -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        android:orientation="vertical"
+        android:background="@drawable/bg_rounded_card"
+        android:elevation="4dp"
+        android:padding="12dp"
+        android:layout_marginBottom="100dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/category_summary_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+    </LinearLayout>
 </LinearLayout>
