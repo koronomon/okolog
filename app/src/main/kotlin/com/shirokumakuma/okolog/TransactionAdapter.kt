@@ -1,15 +1,14 @@
-package com.example.okolog
+package com.shirokumakuma.okolog
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.okolog.data.TransactionWithCategory
+import com.shirokumakuma.okolog.data.TransactionWithCategory
 
 class TransactionAdapter (
     private val onDeleteClick: (TransactionWithCategory) -> Unit,

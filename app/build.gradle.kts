@@ -10,11 +10,11 @@ kapt {
 }
 
 android {
-    namespace = "com.example.okolog"
+    namespace = "com.shirokumakuma.okolog"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.okolog"
+        applicationId = "com.shirokumakuma.okolog"
         minSdk = 24
         targetSdk = 35
         versionCode = 1

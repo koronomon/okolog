@@ -1,4 +1,4 @@
-package com.example.okolog
+package com.shirokumakuma.okolog
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,8 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.okolog.R
-import com.example.okolog.data.AppDatabase
+import com.shirokumakuma.okolog.R
+import com.shirokumakuma.okolog.data.AppDatabase
 import kotlinx.coroutines.launch
 import java.util.*
 

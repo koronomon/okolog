@@ -1,4 +1,4 @@
-package com.example.okolog
+package com.shirokumakuma.okolog
 
 import android.app.DatePickerDialog
 import android.app.Dialog

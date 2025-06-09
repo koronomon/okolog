@@ -1,4 +1,4 @@
-package com.example.okolog
+package com.shirokumakuma.okolog
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.icu.text.SimpleDateFormat
@@ -14,12 +14,14 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.RadioButton
 import android.widget.Toast
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import com.example.okolog.data.AppDatabase
+import com.shirokumakuma.okolog.data.AppDatabase
 import kotlinx.coroutines.launch
-import com.example.okolog.data.Category
-import com.example.okolog.data.TransactionItemModel
+import com.shirokumakuma.okolog.data.Category
+import com.shirokumakuma.okolog.data.TransactionItemModel
 import java.util.Date
 import java.util.Locale
 

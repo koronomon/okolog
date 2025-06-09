@@ -1,4 +1,4 @@
-package com.example.okolog.data
+package com.shirokumakuma.okolog.data
 
 import android.content.Context
 import androidx.room.Database

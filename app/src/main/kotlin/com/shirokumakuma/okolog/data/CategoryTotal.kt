@@ -1,4 +1,4 @@
-package com.example.okolog.data
+package com.shirokumakuma.okolog.data
 
 data class CategoryTotal(
     val name: String,

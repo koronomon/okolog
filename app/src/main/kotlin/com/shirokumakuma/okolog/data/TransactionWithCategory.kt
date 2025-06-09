@@ -1,4 +1,4 @@
-package com.example.okolog.data
+package com.shirokumakuma.okolog.data
 
 import androidx.room.Embedded
 import androidx.room.Relation

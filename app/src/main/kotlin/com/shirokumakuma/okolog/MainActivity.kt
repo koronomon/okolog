@@ -1,4 +1,4 @@
-package com.example.okolog
+package com.shirokumakuma.okolog
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

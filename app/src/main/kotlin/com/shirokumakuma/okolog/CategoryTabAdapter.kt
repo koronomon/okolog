@@ -1,11 +1,11 @@
-package com.example.okolog
+package com.shirokumakuma.okolog
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.okolog.data.Category
+import com.shirokumakuma.okolog.data.Category
 
 class CategoryTabAdapter(
     private val categories: List<Category>,

@@ -16,7 +16,7 @@
         android:padding="16dp"
         android:layout_marginTop="70dp"
         android:layout_marginLeft="12dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="6dp"
         android:layout_marginRight="12dp"
         android:background="@drawable/bg_rounded_card"
         android:elevation="4dp">
@@ -64,7 +64,8 @@
                 android:id="@+id/radio_expense"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="支出" />
+                android:text="支出"
+                android:checked="true"/>
             <RadioButton
                 android:id="@+id/radio_income"
                 android:layout_width="wrap_content"
@@ -81,7 +82,9 @@
             android:maxLength="20"
             android:background="@drawable/bg_rounded_input"
             android:padding="12dp"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp"
+            android:inputType="text"
+            android:imeOptions="actionDone"/>
     </LinearLayout>
 
     <!-- カテゴリ部分 -->
@@ -90,7 +93,10 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_margin="12dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginBottom="6dp"
         android:background="@drawable/bg_rounded_card">
 
         <LinearLayout
@@ -107,10 +113,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="＋ カテゴリを追加"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="6dp"
         android:layout_marginRight="12dp"
         android:layout_marginLeft="12dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="110dp"
         android:background="@drawable/bg_rounded_button"
         android:textColor="@android:color/white"/>
 </LinearLayout>

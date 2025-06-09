@@ -1,4 +1,4 @@
-package com.example.okolog
+package com.shirokumakuma.okolog
 
 import android.app.AlertDialog
 import android.app.DatePickerDialog
@@ -21,11 +21,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.okolog.data.AppDatabase
-import com.example.okolog.data.Category
-import com.example.okolog.data.TransactionItemModel
-import com.example.okolog.data.TransactionItemModelDao
-import com.example.okolog.data.TransactionWithCategory
+import com.shirokumakuma.okolog.data.AppDatabase
+import com.shirokumakuma.okolog.data.Category
+import com.shirokumakuma.okolog.data.TransactionItemModel
+import com.shirokumakuma.okolog.data.TransactionWithCategory
 import kotlinx.coroutines.launch
 import java.util.Calendar
 
