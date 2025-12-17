@@ -60,7 +60,7 @@ class CategorySummaryFragment : Fragment() {
             lifecycleScope.launch {
                 val categoryTotals = db.transactionItemModelDao().getCategoryTotalsByMonth(ym)
                 val items = categoryTotals.map {
-                    CategorySummary(it.name, it.total)
+                    CategorySummary(it.categoryId, it.name, it.total)
                 }
                 val grandTotal = items.sumOf { it.totalAmount }
                 adapter.submitList(items)

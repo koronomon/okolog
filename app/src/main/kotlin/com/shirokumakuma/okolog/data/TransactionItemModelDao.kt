@@ -19,14 +19,15 @@ interface TransactionItemModelDao {
 
     @Transaction
     @Query("""
-    SELECT c.name AS name, 
+    SELECT c.id AS categoryId,
+           c.name AS name, 
            SUM(CASE WHEN t.isExpense = 1 THEN -t.amount ELSE t.amount END) AS total
     FROM transaction_item_model t
     INNER JOIN categories c ON t.categoryId = c.id
     WHERE t.date LIKE :month || '%'
       AND c.isDisabled = 0
     GROUP BY c.id, c.name
-    ORDER BY c.name
+    ORDER BY c.id ASC
 """)
     suspend fun getCategoryTotalsByMonth(month: String): List<CategoryTotal>
 

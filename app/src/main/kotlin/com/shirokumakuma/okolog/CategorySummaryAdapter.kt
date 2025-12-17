@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.shirokumakuma.okolog.R
 
 data class CategorySummary(
+    val categoryId: Int,
     val categoryName: String,
     val totalAmount: Long
 )
@@ -18,7 +19,7 @@ class CategorySummaryAdapter : RecyclerView.Adapter<CategorySummaryAdapter.ViewH
     private var items: List<CategorySummary> = emptyList()
 
     fun submitList(newList: List<CategorySummary>) {
-        items = newList
+        items = newList.sortedBy { it.categoryId }
         notifyDataSetChanged()
     }
 
